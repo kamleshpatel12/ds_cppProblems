@@ -14,34 +14,34 @@ public:
         if(head->next==nullptr && n==1)
         return nullptr;
 
-        int count =0;
-        ListNode*temp = head;
-        while(temp!=nullptr){     
-            count++;
-            temp = temp->next;
+      ListNode*slow = head;
+      ListNode*fast = head;
+      
+        // Keep fast n nodes ahead of slow
+        for(int i = 1; i <= n; i++) {
+            fast = fast->next;
         }
 
-        int total = (count-n+1);
-        temp = head;
-
-       // deleting at beginning
-        if(total == 1){
-           head = head->next;
-           return head;
-        }
-        for(int pos =1; pos<total-1 && temp!=nullptr; pos++){
-           temp = temp->next;
+           // If fast becomes nullptr, n == length
+        if(fast==nullptr){
+            return head->next;
         }
 
-        if(temp==nullptr || temp->next==nullptr){
-            // out of range
-            return head;
-        }
-        temp->next = temp->next->next;
-        return head;
+       
+
+      while(fast->next!=nullptr){
+        slow = slow->next;
+        fast = fast->next;
+      }
+
+      slow->next = slow->next->next;
+      return head;
+
+     
 
     }
 };
 
-// to remove the nth node from the end , it would be total-n+1 th node from the beginning.
-// to deelte something called x node, we need to traverse to pos-2 the element the node and delete it
+
+
+
