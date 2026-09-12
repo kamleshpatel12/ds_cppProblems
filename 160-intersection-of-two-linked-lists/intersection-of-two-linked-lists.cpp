@@ -13,14 +13,12 @@ public:
         ListNode*temp1 = headA;
         ListNode*temp2 = headB;
         while(temp1!=nullptr){
-            if(mp.find(temp1)!=mp.end()){
-               return temp1;
-            }
+
          mp[temp1] = 1;
          temp1 = temp1->next;
         }
 
-          while(temp2!=nullptr){
+        while(temp2!=nullptr){
             if(mp.find(temp2)!=mp.end()){
                return temp2;
             }
