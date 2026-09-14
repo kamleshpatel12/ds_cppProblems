@@ -8,47 +8,56 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        ListNode*temp  = head;
-        int count =0;
-        while(temp!=nullptr){
+        if(head == nullptr || head->next == nullptr)
+            return;
+
+        // 1. Find length
+        int count = 0;
+        ListNode* temp = head;
+
+        while(temp != nullptr) {
             count++;
-            temp= temp->next;
+            temp = temp->next;
         }
+
+        // 2. Split
         temp = head;
-        int pos = (count/2)+1;
+        int pos = (count / 2) + 1;
 
-        for(int i=1; i<=pos-1; i++){
-         temp = temp->next;
+        for(int i = 1; i < pos; i++) {
+            temp = temp->next;
         }
-        ListNode*current   = temp->next;
-        temp->next =nullptr;
-        
-        
-        ListNode*prev = nullptr;
-        ListNode*next  = nullptr;
-        while(current!=nullptr){
-            next  = current->next;
-            current->next = prev;
-            prev = current;
-            current = next;
+
+        ListNode* second = temp->next;
+        temp->next = nullptr;
+
+        // 3. Reverse second half
+        ListNode* prev = nullptr;
+
+        while(second != nullptr) {
+            ListNode* next = second->next;
+            second->next = prev;
+            prev = second;
+            second = next;
         }
-        
+
+        // 4. Merge
         ListNode* first = head;
-        ListNode* second = prev;
+        second = prev;
 
-        while(first != nullptr && second != nullptr){
-  
-        ListNode* nextFirst = first->next;
-        ListNode* nextSecond = second->next;
+        while(second != nullptr) {
+            ListNode* nextFirst = first->next;
+            ListNode* nextSecond = second->next;
 
-         first->next = second;
-         second->next = nextFirst;
+            first->next = second;
+            second->next = nextFirst;
 
-         first = nextFirst;
-         second = nextSecond;
+            first = nextFirst;
+            second = nextSecond;
         }
     }
 };
