@@ -26,8 +26,6 @@ public:
         if(k==0 || rotation==0)
         return head;
 
-
-
         for(int i=0; i<rotation; i++){
             ListNode*temp = current;
 
