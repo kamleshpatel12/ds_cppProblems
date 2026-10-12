@@ -27,7 +27,7 @@ public:
             prev = slow;
             slow = next;
          }
-        
+         
        while(prev!=nullptr){
         if(prev->val!=head->val){
             return false;
